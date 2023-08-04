@@ -71,7 +71,7 @@ const Courses = () => {
               variants={MotionItem}>
               <img
                 alt={course.course_name}
-                className="w-full object-cover rounded-lg mb-4"
+                className="w-full object-cover mb-4"
                 src={course.image}
               />
               <div className="p-3 ml-3">

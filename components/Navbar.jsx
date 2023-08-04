@@ -10,7 +10,9 @@ const Navbar = ({ search, setSearch }) => {
   return (
     <nav className="fixed z-50 bg-slate-700 w-full p-5 h-full overflow-auto">
       <div className="flex w-full justify-between items-center text-white">
-        <h1 className="text-xl uppercase px-2 font-bold cursor-pointer">
+        <h1 className="text-xl uppercase px-2 font-bold cursor-pointer"
+          onClick={()=>router.push('/')}
+        >
           Weblearn
         </h1>
         <div className="flex gap-2">

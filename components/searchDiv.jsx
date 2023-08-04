@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRouter } from "next/navigation";
@@ -9,13 +9,14 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-const SearchPopup = ({ isOpen, onClose }) => {
+const SearchPopup = ({ isOpen, onClose,controls }) => {
   const router = useRouter();
-  const [searchText, setSearchText] = React.useState("");
+  const {preData} = controls;
+  const [searchText, setSearchText] = React.useState(preData ? preData : "");
   const [filteredData, setFilteredData] = React.useState(data);
 
-  const handleSearch = (e) => {
-    setSearchText(e.target.value);
+  const handleSearch = () => {
+    
     setFilteredData(
       data.filter(
         (val) =>
@@ -24,6 +25,12 @@ const SearchPopup = ({ isOpen, onClose }) => {
       )
     );
   };
+
+ useEffect(()=>{
+  if(preData){
+    handleSearch();
+  }
+ },[])
 
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -52,7 +59,10 @@ const SearchPopup = ({ isOpen, onClose }) => {
                 className="w-2/3 p-2 border border-black rounded-md"
                 placeholder="Search courses..."
                 value={searchText}
-                onChange={handleSearch}
+                onChange={(e)=>{
+                  setSearchText(e.target.value);
+                  handleSearch();
+                }}
               />
               <button
                 className="block mt-4 px-4 py-2 text-black bg-blue-500 rounded-md hover:bg-blue-600"
